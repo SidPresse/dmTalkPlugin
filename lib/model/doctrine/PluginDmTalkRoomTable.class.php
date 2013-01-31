@@ -7,10 +7,11 @@
  */
 class PluginDmTalkRoomTable extends myDoctrineTable
 {
-  public function getRoomsSince24H()
+  public function getRoomsSinceHours($hours)
   {
+  	$seconds = 36000 * $hours;
     return $this->createQuery('s')
-    ->where('s.created_at > now() - 86400')
+    ->where('s.created_at > now() - '.$seconds)
     ->execute();
   }
 }

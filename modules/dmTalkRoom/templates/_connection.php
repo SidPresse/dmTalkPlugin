@@ -15,11 +15,14 @@
 
 if (sfContext::getInstance()->getUser()->can('talk'))
 {
+	// params
+	$sinceHours = sfConfig::get('app_since-hours');  // nombre d'heures
+
 	// all the rooms
 	$roomsList = '';
 	$roomsListNotIn ='';
 	$roomsListIn ='';	
-    $rooms = dmDb::table('DmTalkRoom')->getRoomsSince24H();
+    $rooms = dmDb::table('DmTalkRoom')->getRoomsSinceHours($sinceHours);
 	foreach ($rooms as $room) {
 		$humans = $room->getHumanSpeakers();
 		$humansArray = explode(',', implode(',', $humans));
@@ -34,10 +37,10 @@ if (sfContext::getInstance()->getUser()->can('talk'))
 		
 	}
 	if ($roomsListNotIn != ''){
-		$roomsList .= _tag('dlt',_tag('dt',__('Rooms without you since 24h').$roomsListNotIn));
+		$roomsList .= _tag('dlt',_tag('dt',__('Rooms without you since'). " " .$sinceHours."h" .$roomsListNotIn));
 	}
 	if ($roomsListIn != ''){
-		$roomsList .= _tag('dlt',_tag('dt',__('Rooms with you since 24h').$roomsListIn));
+		$roomsList .= _tag('dlt',_tag('dt',__('Rooms with you since'). " " .$sinceHours."h".$roomsListIn));
 	}
 
 	// La room a-t-elle des humains?
