@@ -115,9 +115,10 @@ class dmTalkRoomActions extends myFrontModuleActions
       $speaker = dmDb::table('DmTalkSpeaker')->findOneByCode($request->getParameter('s'))
     );
 
-    $speaker->Room->botSpeaker->say(str_replace('http://', "\nhttp://", $this->getI18n()->__('Give this url to invite someone to join the room: %url%', array(
-      '%url%' => $this->getHelper()->link($this->getPage())->param('r', $speaker->Room->code)->getAbsoluteHref())
-    )), $speaker);
+    // lioshi : no more message like this, all conversdation in _connection.php
+    // $speaker->Room->botSpeaker->say(str_replace('http://', "\nhttp://", $this->getI18n()->__('Give this url to invite someone to join the room: %url%', array(
+    //   '%url%' => $this->getHelper()->link($this->getPage())->param('r', $speaker->Room->code)->getAbsoluteHref())
+    // )), $speaker);
 
     return $this->renderJson(array(
       'hash' => $speaker->Room->hash,
