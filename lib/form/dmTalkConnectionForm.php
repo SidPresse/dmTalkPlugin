@@ -19,7 +19,14 @@ class dmTalkConnectionForm extends dmForm
 
   public function configure()
   {
-    $this->widgetSchema['name']     = new sfWidgetFormInputText();
-    $this->validatorSchema['name']  = new dmTalkConnectionValidator($this->room);
+    // $this->widgetSchema['name']     = new sfWidgetFormInputText();
+    // $this->validatorSchema['name']  = new dmTalkConnectionValidator($this->room);
+
+    $this->widgetSchema['name']     = new sfWidgetFormInputHidden();
+    $userName = sfContext::getInstance()->getUser();
+    $this->widgetSchema['name']->setDefault($userName);
+    //$this->validatorSchema['name']  = new dmTalkConnectionValidator($this->room);
+    $this->validatorSchema['name']  = new sfValidatorString();
+
   }
 }

@@ -4,5 +4,8 @@ Project:
 
     dmTalkRoom:
       name:         Talk Room
+      admin: false
+      front: true
+      credentials: talk
       actions:
         application:

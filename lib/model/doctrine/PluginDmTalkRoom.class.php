@@ -98,6 +98,11 @@ abstract class PluginDmTalkRoom extends BaseDmTalkRoom
 
   public function createSpeaker($name)
   {
+    // lioshi : si il existe on le renvoie (reconnexion)
+    $user = dmDb::table('DmTalkSpeaker')->findOneByNameAndRoomId($name,$this->id);
+    if ($user) return $user;
+    // fin lioshi
+    
     return dmDb::table('DmTalkSpeaker')->create(array(
       'name'    => $name,
       'room_id' => $this->id
